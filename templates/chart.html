@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Comparison</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Algorithm', 'Time (ms)'],
+                ...{{ data_for_chart | safe }}
+            ]);
+
+            var options = {
+                title: 'Comparison of Sorting Algorithm Execution Times',
+                width: 1000, // Adjust width to make the chart larger
+                height: 500, // Adjust height to make the chart larger
+                hAxis: {
+                    title: 'Execution Time (ms)',
+                    titleTextStyle: {color: '#333'},
+                    slantedText: true, // Helps with longer text
+                    slantedTextAngle: 45 // Angle of slant
+                },
+                vAxis: {
+                    title: 'Algorithm',
+                    minValue: 0,
+                    viewWindow: {
+                        min: 0
+                    },
+                    format: 'short' // Ensures that large numbers are appropriately shortened
+                },
+                chartArea: {width: '60%', height: '70%'}, // Adjust chartArea to utilize more space
+                legend: {position: 'top', alignment: 'end'}
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        #chart_div {
+            width: 100%; /* Ensures the div takes the full width of its parent */
+            max-width: 1000px; /* Adjusted max-width for a larger chart */
+            height: 500px; /* Specific height for the chart */
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a.navbar-brand {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{url_for('home_f')}}">HOMEPAGE</a>
+            <a class="navbar-brand" href="{{url_for('comp_f')}}">COMPARE ALGORITHMS</a>
+        </div>
+    </nav>
+
+    <div class="text-center mt-5">
+        <h2>Algorithm Performance Comparison</h2>
+        <p class="lead">{{ input_size_string }}</p>
+    </div>
+
+    <div id="chart_div"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
