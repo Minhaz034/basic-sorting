@@ -1,8 +1,4 @@
 # Sorting Algorthms
-Author: Minhaz Bin Faruke
-UTA ID: 1002154424
-Section : 004
-Programming Assignment
 
 ## Overview
 
